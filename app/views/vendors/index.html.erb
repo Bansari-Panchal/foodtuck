@@ -1,0 +1,33 @@
+<% @vendors.each do |vendor| %>
+  <% if vendor.user_id == current_user.id %>
+    <div align="right">
+    <%= link_to 'Vendor Menu',vendor_products_path(vendor)%><br>
+    </div>
+  <% end %>
+<% end %>
+<h1>Listing Vendors</h1>
+<%= form_tag(vendors_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+  <%= submit_tag "Search" %>
+<% end %>
+  <br>
+  <br>
+<table>
+<% @vendors.each do |vendor| %>
+  
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-4">
+    <%=image_tag(vendor.featured_image.url) %>
+    </div>
+    <div class="col-sm-4">
+      <h3><%= vendor.name %></h3><br>
+      <%= vendor.tagline %><br>
+      <%= vendor.description %><br>
+      <%= link_to 'Show More', vendor_path(vendor) %>
+    </div>
+    </div>
+    </div>
+    </br>
+<% end %>
+</table>

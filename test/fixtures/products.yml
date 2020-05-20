@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vendor: one
+  name: MyString
+  description: MyText
+  cost_in_dollars: 9.99
+  position: 1
+  availability: false
+
+two:
+  vendor: two
+  name: MyString
+  description: MyText
+  cost_in_dollars: 9.99
+  position: 1
+  availability: false

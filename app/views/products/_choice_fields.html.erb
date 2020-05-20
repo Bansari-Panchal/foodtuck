@@ -1,0 +1,13 @@
+<div class='nested-fields'>
+<%= link_to_remove_association "remove choice", f , class: 'btn btn-primary' %>
+
+<div class="field">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.check_box :allow_multiple %>
+  <%= f.label :allow_multiple %>
+</div>
+  <%= f.check_box :_destroy %>
+</div>
