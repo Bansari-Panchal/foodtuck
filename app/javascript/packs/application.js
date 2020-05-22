@@ -13,7 +13,13 @@ require("imports-loader")
 
 
 import 'imports-loader?define=>false,module.exports=>false!jquery-validation';
+import "cocoon";
+import 'bootstrap';
+
+//= require bootstrap-sprockets
+//= require bootstrap
 //= require cocoon
+//= require popper
 //= require jquery3
 //= require jquery_ujs
 //= require_tree

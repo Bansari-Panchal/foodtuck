@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @vendor = Vendor.find(params[:vendor_id])
-    @products = Product.where(:vendor_id => @vendor.id)
+    @products = Product.all.where(:vendor_id => @vendor.id)
   end
         
   def show
@@ -13,11 +13,13 @@ class ProductsController < ApplicationController
     @vendor = Vendor.find(params[:vendor_id])
     @vendor.products.build
     @product.choices.build
+    #@product.choices.options.build
   end
         
   def edit
     @vendor = Vendor.find(params[:vendor_id])
-    @product = Product.find(params[:id],@vendor.id)
+    @product = Product.find(params[:id])
+    
   end
         
   def create
@@ -32,10 +34,10 @@ class ProductsController < ApplicationController
         
   def update
     @vendor = Vendor.find(params[:vendor_id])
-    @product = Product.find(params[:id])
+    @product = @vendor.products.find(params[:id])
         
     if @product.update(product_params)
-      redirect_to @product
+      redirect_to vendor_products_path
     else
       render 'edit'
     end
@@ -50,7 +52,7 @@ class ProductsController < ApplicationController
  
    private
     def product_params
-          params.require(:product).permit(:vendor_id,:name,:cost_in_dollars,:description,:menu_category,:item_tags,:availability,:popular,:item_image,:is_catering, choices_attributes: Choice.attribute_names.map(:to_sym).push(:_destroy))
+          params.require(:product).permit(:vendor_id,:name,:cost_in_dollars,:description,:menu_category,:item_tags,:availability,:popular,:item_image,:is_catering, choices_attributes:[:id, :name, :allow_multiple, :_destroy,options_attributes: [:id, :name, :cost_in_dollars,  :choice_id,:_destroy]])
     end
               
              

@@ -31,6 +31,8 @@ gem 'omniauth-google-oauth2'
 gem 'bootstrap', '~> 4.4.1'
 gem "bootstrap_form", "~> 4.0"
 gem 'cocoon'
+gem 'bootstrap-sass' , '~> 3.4.1'
+gem 'font-awesome-sass'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails-jquery-autocomplete'
@@ -40,7 +42,7 @@ group :development, :test do
 end
 gem 'paperclip'
 gem 'pry'
-gem 'jquery-rails' , '~> 4.3.5'
+gem 'jquery-rails' 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

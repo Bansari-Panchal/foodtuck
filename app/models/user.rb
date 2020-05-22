@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :login
-  has_one :vendors, dependent: :destroy
+  has_one :vendor, dependent: :destroy
   has_many :user_provider, :dependent => :destroy
   attr_accessor :image
   has_attached_file :image

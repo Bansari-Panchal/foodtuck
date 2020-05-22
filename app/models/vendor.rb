@@ -13,9 +13,9 @@ class Vendor < ApplicationRecord
   validates_attachment_content_type :featured_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   def self.search(search)
-    # Title is for the above case, the OP incorrectly had 'name'
-    where("name LIKE ?", "%#{search}%")
-    #Vendor.includes(:product).where('vendors.name LIKE ? OR products.name LIKE ?', "%#{search}%")
+    #self.includes(:product).where("vendors.name LIKE ? OR products.name LIKE ?",  "%#{search}%",  "%#{search}%")
+    #where("name LIKE ?", "%#{search}%")
+    where(id:Product.select(:vendor_id).where("name LIKE ?", "%#{search}%"))
     
   end
 

@@ -12,7 +12,7 @@
 </div>
 <div class='page-inner'>
 
-<%= form_with(model: [ @vendor, @vendor.products.build ], local: true) do |f| %> 
+<%= form_with(model: [ @vendor, @product ], local: true) do |f| %> 
 
 <ul class="nav nav-tabs nav-line nav-color-primary bb-0",role="tablist" >
 <li class="nav-item" >
@@ -60,9 +60,19 @@
 <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
  
   <hr>
-   
+  <h3>Choices (1 to 10)</h3>
+    
+  <div class="choices">
+  <%= f.fields_for :choices do |choice| %>
+ <%= render 'choice_fields', :f => choice %>
+  <% end %>
+ </div>
+
+      
   <div class="actions">
     <%= f.submit "Register" ,class:"btn btn-primary"%>
+    <%= link_to_add_association 'add choice', f, :choices , class: 'btn btn-primary', data:
+    { association_insertion_node: '.choices' , association_insertion_method: :append } %>
   </div>
 <% end %>
 

@@ -1,6 +1,8 @@
 <% if @vendor.user_id == current_user.id %>
 <div align="right">
+<%= link_to 'Edit Vendor',edit_vendor_path(@vendor)%><br>
 <%= link_to 'Vendor Menu',vendor_products_path(@vendor)%><br>
+<%= link_to 'User Dashboard',edit_user_path(current_user)%><br>
 </div>
 <% end %>
 <hr>

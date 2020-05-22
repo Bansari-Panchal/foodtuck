@@ -1,6 +1,5 @@
+<div class="card" style="width: 30rem;">
 <div class='nested-fields'>
-<%= link_to_remove_association "remove choice", f , class: 'btn btn-primary' %>
-
 <div class="field">
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -9,5 +8,19 @@
   <%= f.check_box :allow_multiple %>
   <%= f.label :allow_multiple %>
 </div>
-  <%= f.check_box :_destroy %>
+<%= link_to_remove_association "remove choice", f ,class:"btn btn-primary" %>
+<br>
+<br>
+
+<div class="options">
+ <%= f.fields_for :options do |option| %>
+   <%= render 'option_fields', :f => option %>
+ <% end %>
+ </div>
+ <br>
+ <%= link_to_add_association 'add option', f, :options , class: 'btn btn-primary', data:
+ { association_insertion_node: '.options' , association_insertion_method: :append } %>
+ <br>
 </div>
+</div>  
+<br>

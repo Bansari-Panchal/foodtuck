@@ -1,0 +1,72 @@
+<h2>REGISTER YOUR FOOD TRUCK</h2>
+
+<%= form_for @vendor, :as => :vendor, :url =>   vendors_path(@vendor), local: true do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= current_user.name %> 
+  <div class="field"><%= f.label :name %><br />
+        <%= f.text_field :name %>
+    </div>
+
+    <div class="field"><%= f.label :tagline %><br />
+        <%= f.text_field :tagline %>
+    </div>
+
+    <div class="field"><%= f.label :description %><br />
+        <%= f.text_area :description %>
+    </div> 
+
+     <div class="field"><%= f.label :upload_logo %><br />
+        <%= f.file_field :featured_image %>
+    </div>
+  
+    <div class="field"><%= f.label :order_fulfillment_time_in_minutes %><br />
+        <%= f.select :order_fulfillment_time_in_minutes, ['10', '15','20','25','30']%>
+    </div> 
+
+
+    <div class="field"><%= f.label :Pick_category %><br />
+        <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+          <div> <%= b.check_box %><%= b.label { b.text } %></div>
+          <% end %>
+        </div> 
+    <br>
+
+    <div class="field"><%= f.label :Rate_your_truck_from_Cheap_to_Spendyx %><br />
+    <%= f.radio_button :price_point, '1' %> 1
+    <%= f.radio_button :price_point, '2' %> 2
+    <%= f.radio_button :price_point, '3' %> 3
+    <%= f.radio_button :price_point, '4' %> 4
+    <%= f.radio_button :price_point, '5' %> 5
+    </div>
+
+    <hr>
+    <h3>Taxes and Fees</h3>
+
+    <%= f.fields_for :tax , @vendor.tax do |c| %>
+      <div class="field"><%= c.label :description %><br />
+      <%= c.text_field :desc %>
+      </div>
+        </br>
+      <div class="field"><%= c.label :Amount %><br />
+      <%= c.text_field :amount %>
+      </div>
+        </br>
+      
+      <div class="field">
+      <%= c.radio_button :is_percentage, 'Percentage' %> Percentage
+      <%= c.radio_button :is_percentage, 'Flat Amount' %> Flat Amount
+      </div>
+  
+      <div class="field">
+         
+          <%= c.check_box :terms, {}, true, false %>
+          <%= c.label "I agree to the Vendor Terms of Service" %> <br />
+      </div>
+    <% end %>
+  
+  <div class="actions">
+    <%= f.submit "Register" ,class:"btn btn-primary"%>
+  </div>
+<% end %>
+
+</script>

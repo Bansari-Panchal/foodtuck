@@ -15,8 +15,14 @@ $(function() {
     readURL(this);
   });
 });
-
 $(document).ready(function()
+{
+  $("#choice").click(function () {
+    $("#myModal").modal("show");
+  });
+});
+
+/*$(document).ready(function()
 {
   $("#new").click(function () {
     var clon=$('.box:first').clone(true).appendTo(".col-md-12");
@@ -25,4 +31,4 @@ $(document).ready(function()
   $("#remove").click(function () {
     $('.box:last').remove();
   });
-});
+});*/

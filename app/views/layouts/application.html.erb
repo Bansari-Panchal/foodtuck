@@ -8,37 +8,49 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'product' %>
     <%= javascript_pack_tag 'autocomplete-rails.js' %>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+
 
   </head>
 
-  <body>
-<b class="notice"><%= notice %></b>
-<b class="alert"><%= alert %></b>
-<% if user_signed_in? %>
-           <li>
-            Logged in as <strong><%= current_user.name %></strong>
-          </li>   
-      <ul class="nav nav-tabs">
-          <li class="nav-item" >
-            <%= link_to 'Edit profile', edit_user_path(current_user), :class => 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'nav-link'  %>
-          </li>
-          <li class="nav-item">
-          <%= link_to "Become Vendor?", new_vendor_path(current_user), :class => 'nav-link'  %>
-          </li>
-          
-      <% else %>
-          <li class="nav-item">
-          <%= link_to "Sign up", new_user_registration_path, :class => 'nav-link'  %>
-          </li>
-          <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, :class => 'nav-link'  %>
-          </li>
-      <% end %>
-</ul>
+  <body>    
+  <%= render 'layouts/header' %>
+
+  <div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= value %>
+     </div>
+  <% end %>
 
     <%= yield %>
+  </div>
+
   </body>
+
+  <footer class="footer">
+  <div class="col-md-2">
+    <div class="logo">
+      <a href="\">
+      <%= image_tag("logos/logo.png")%>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-8 centerText">
+    <ul class="footerMenu">
+      <li>   
+      <% if user_signed_in? %>
+        <% if current_user.vendor %>
+          <%= link_to 'Vendor Dashboard' , vendor_path(current_user.vendor) %>
+        <% else %>
+         <%= link_to 'Become vendor ?' , new_vendor_path %>
+        <% end %>
+      <% end %>
+      </li>
+    </ul>
+  </div>
+</footer>
 </html>
