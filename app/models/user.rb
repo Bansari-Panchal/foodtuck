@@ -2,11 +2,8 @@ class User < ApplicationRecord
   attr_accessor :login
   has_one :vendor, dependent: :destroy
   has_many :user_provider, :dependent => :destroy
-  attr_accessor :image
-  has_attached_file :image
+  has_one_attached :image
   
-
-  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

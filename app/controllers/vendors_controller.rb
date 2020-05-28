@@ -25,8 +25,10 @@ class VendorsController < ApplicationController
     def create
       @vendor = Vendor.new(vendor_params)
       if @vendor.save
+        flash.now[:success] = "Vendor is created sucessfully."
         redirect_to vendors_path
       else
+        flash.now[:error] = "Vendor is not created . something wrong."
         render 'new'
       end
     end
@@ -35,8 +37,10 @@ class VendorsController < ApplicationController
       @vendor = Vendor.find(params[:id])
           
       if @vendor.update(vendor_params)
+        flash.now[:success] = "Item is updated sucessfully."
         redirect_to @vendor
       else
+        flash.now[:error] = "Vendor is not updated . something wrong."
         render 'edit'
       end
     end
@@ -44,7 +48,7 @@ class VendorsController < ApplicationController
     def destroy
       @vendor = Vendor.find(params[:id])
       @vendor.destroy
-             
+      flash.now[:success] = "Vendor is deleted sucessfully."      
       redirect_to vendors_path
     end
 

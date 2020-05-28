@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_111007) do
+ActiveRecord::Schema.define(version: 2020_05_28_045247) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -27,11 +51,16 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "categories_vendors", id: false, force: :cascade do |t|
+    t.integer "vendor_id"
+    t.integer "category_id"
+  end
+
   create_table "choices", force: :cascade do |t|
     t.string "name"
     t.boolean "allow_multiple"
     t.integer "position"
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_choices_on_product_id"
@@ -50,14 +79,14 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
     t.string "name"
     t.decimal "cost_in_dollars"
     t.integer "position"
-    t.integer "choice_id", null: false
+    t.bigint "choice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["choice_id"], name: "index_options_on_choice_id"
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "vendor_id", null: false
+    t.bigint "vendor_id", null: false
     t.string "name"
     t.text "description"
     t.decimal "cost_in_dollars"
@@ -76,18 +105,11 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
     t.index ["vendor_id"], name: "index_products_on_vendor_id"
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "taxes", force: :cascade do |t|
     t.string "desc"
     t.decimal "amount"
     t.boolean "is_percentage"
-    t.integer "vendor_id", null: false
+    t.bigint "vendor_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "terms"
@@ -95,7 +117,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
   end
 
   create_table "user_providers", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "provider"
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
@@ -113,7 +135,6 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "provider"
     t.string "uid"
-    t.integer "phone"
     t.string "name"
     t.string "image_file_name"
     t.string "image_content_type"
@@ -121,6 +142,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
     t.datetime "image_updated_at"
     t.datetime "timezone"
     t.date "birthdate"
+    t.string "phone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -131,21 +153,13 @@ ActiveRecord::Schema.define(version: 2020_05_18_111007) do
     t.text "description"
     t.integer "order_fulfillment_time_in_minutes"
     t.integer "price_point"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "featured_image_file_name"
-    t.string "featured_image_content_type"
-    t.bigint "featured_image_file_size"
-    t.datetime "featured_image_updated_at"
     t.index ["user_id"], name: "index_vendors_on_user_id"
   end
 
-  create_table "vendors_categories", id: false, force: :cascade do |t|
-    t.integer "vendor_id"
-    t.integer "category_id"
-  end
-
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "products"
   add_foreign_key "options", "choices"
   add_foreign_key "products", "vendors"

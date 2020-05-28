@@ -6,7 +6,8 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+#gem 'sqlite3', '~> 1.4'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -31,8 +32,7 @@ gem 'omniauth-google-oauth2'
 gem 'bootstrap', '~> 4.4.1'
 gem "bootstrap_form", "~> 4.0"
 gem 'cocoon'
-gem 'bootstrap-sass' , '~> 3.4.1'
-gem 'font-awesome-sass'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails-jquery-autocomplete'
@@ -40,7 +40,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-gem 'paperclip'
+#gem 'paperclip'
 gem 'pry'
 gem 'jquery-rails' 
 group :development do
@@ -51,7 +51,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
+group :development do
+  gem 'pry-rails'
+end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'

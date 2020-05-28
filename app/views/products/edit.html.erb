@@ -1,3 +1,5 @@
+
+<body class= "gray">
 <div class='content'>
 <div class='page-inner hasButton'>
 <div class='page-header'>
@@ -12,7 +14,7 @@
 </div>
 <div class='page-inner'>
 
-<%= form_with(model: [ @vendor, @product ], local: true) do |f| %> 
+<%= form_with(model: [ @vendor, @product], local: true) do |f| %> 
 
 <ul class="nav nav-tabs nav-line nav-color-primary bb-0",role="tablist" >
 <li class="nav-item" >
@@ -23,61 +25,77 @@
 <%= f.radio_button :is_catering, true %> Catering
 </li>
 </ul>
-  <div class="field"><%= f.label :name %><br />
-  <%= f.text_field :name %>
-  </div>
-
-  <div class="field"><%= f.label :cost_in_dollars %><br />
-  <span class="input-group-addon"><i class="glyphicon glyphicon-doller"></i></span>
-  <%= f.text_field :cost_in_dollars %>
-  </div>
-
-  <div class="field"><%= f.label :description %><br />
-      <%= f.text_area :description %>
-  </div> 
-
-  <div class="field"><%= f.label :menu_Category %><br />
-  <%= f.select :menu_category, menu_category, :prompt => 'Select One' %><br />
-  </div>
-  
-  <div class="field"><%= f.label :item_tags %><br />
-  <%= f.text_field :item_tags %>
-  </div>
-
-  <div class="field"><br />
-  <%= f.check_box :availability, {}, true, false %>
-  <%= f.label :availability %>
- </div>
-  
-  <div class="field">
-  <%= f.check_box :popular, {}, true, false %>
-  <%= f.label :is_Popular? %>
- </div>
-
- <div class="field"><%= f.label :item_image %><br />
- <%= f.file_field :item_image ,id: "image-upload"  %>
+<div class="row">
+<div class="col-md-6">
+ <div class="form-group col-md-6">
+  <%= f.label :Item_name %><span class="red"> * </span><br />
+  <%= f.text_field :name , class:' form-control' %>
 </div>
-<img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
- 
-  <hr>
-  <h3>Choices (1 to 10)</h3>
-    
-  <div class="choices">
-  <%= f.fields_for :choices do |choice| %>
- <%= render 'choice_fields', :f => choice %>
-  <% end %>
- </div>
 
-      
-  <div class="actions">
-    <%= f.submit "Register" ,class:"btn btn-primary"%>
-    <%= link_to_add_association 'add choice', f, :choices , class: 'btn btn-primary', data:
-    { association_insertion_node: '.choices' , association_insertion_method: :append } %>
+<div class="form-group col-md-6">
+      <%= f.label :Item_price %><span class="red"> * </span>
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+        <%= f.text_field :cost_in_dollars , class: 'form-control' , placeholder: '0.0' , type: 'integer' %> 
+      </div>
+    </div>
+      <div class="form-group">
+        <%= f.label :description %><span class="red"> * </span><br />
+        <%= f.text_area  :description , rows: 4, class: 'form-control' %>
+      </div> 
+      <div class="form-group">
+        <%= f.label :menu_category %><span class="red"> * </span><br />
+        <%= f.select :menu_category, menu_category, :prompt => 'Select One', class: 'form-control' %><br />
+      </div>
+      <div class="form-group">
+        <%= f.label :tags %><br />
+        <%= f.text_field  :item_tags , class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-3">
+        <h4><%= f.label :Availability %></h4>
+        <label class="switch checkbox-inline">
+          <%= f.check_box :availability %>
+          <span class="slider round"></span>
+        </label> 
+      </div>
+      <div class="form-group col-md-3">
+        <h4><%= f.label :is_popular %></h4>
+        <label class="switch checkbox-inline">
+          <%= f.check_box :popular %>
+          <span class="slider round"></span>
+        </label> 
+      </div>
+    </div>
+    <div class="col-md-6">
+      <center>
+        <div class="image">
+          <h4><%= f.label :Menu_Item_Image  %></h4>
+          <img id="img_prev" width='200' height='200' src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+          <%= f.file_field :item_image, id: 'image-upload' , class: 'form-control' %>
+        </div>
+      </center>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="mt-4">Choices (Create Up to 10)</h2>
+      <hr>
+      <div id="choices">
+      <%= f.fields_for :choices do |choice| %>
+        <%= render 'choice_fields', f: choice %>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <%= link_to_add_association 'Add Choice', f , :choices , class: 'btn btn-border'%>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <%= f.submit 'Create Product', id: 'createProduct' ,class: 'btn btn-white btn-lg' %>
+    </div>
   </div>
 <% end %>
-
-<style>
-input[type="radio"]:checked{
-    visibility:hidden;
-}
-</style>
+</div>
+</body>

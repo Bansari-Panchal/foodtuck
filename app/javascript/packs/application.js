@@ -14,7 +14,7 @@ require("imports-loader")
 
 import 'imports-loader?define=>false,module.exports=>false!jquery-validation';
 import "cocoon";
-import 'bootstrap';
+import "bootstrap"
 
 //= require bootstrap-sprockets
 //= require bootstrap

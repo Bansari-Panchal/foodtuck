@@ -1,4 +1,4 @@
-<nav class="navbar  bg-danger">
+<div class="bg-danger">
 <div class="container-fluid">
 <div class="navbar-header">
   <div class="logo" align="left">
@@ -6,25 +6,15 @@
     <%= image_tag("logos/logo.png")%>
     </div>
   </a>
-</div>
-<div class="collapse navbar-collapse" id="navbar-collapse">
-    <ul class="nav navbar-nav navbar-right">
+  <div align="right">
     <% if user_signed_in? %>
-    <li class="nav-item">
-      <%= link_to 'Profile' , edit_user_registration_path , class: 'btn btn-white' %>
-    </li>
-    <li class="nav-item">
-      <%= link_to 'Logout' , destroy_user_session_path , method: :delete ,class: 'btn btn-white' %>
-    </li>
+      <%= link_to 'Profile' , edit_user_registration_path , class: 'btn btn-default' %>
+      <%= link_to 'Logout' , destroy_user_session_path , method: :delete ,class: 'btn btn-default' %>
     <% else %>
-      <li class="nav-item">
-  <%= link_to 'Sign in' , new_user_session_path , class: 'btn btn-white' %>
-      </li>
-      <li class="nav-item">
-       <%= link_to 'Sign up' , new_user_registration_path , class: 'btn btn-white' %>
-      </li>
+      <%= link_to 'Sign in' , new_user_session_path , class: 'btn btn-default' %>
+      <%= link_to 'Sign up' , new_user_registration_path , class: 'btn btn-default' %>
     <% end %>
-    </ul>
+  </div>
 </div>
 </div>
-</nav>
+</div>

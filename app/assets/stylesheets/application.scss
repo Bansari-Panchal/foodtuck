@@ -1,21 +1,26 @@
 
 /*
+*= require bootstrap
  *= require_tree .
  *= require_self
  */
+ .btn-default{
+  background-color: #d2192f !important;
+  border: 2px solid #ffffff; 
+  text-color: #ffffff;
+}
 
- @import 'bootstrap';
- 
-@import "font-awesome";
+.btn-default:hover, .btn-default:active, .btn-default:visited {
+  background-color: #ffffff; 
+}
 
-
- 
 .error{
   color: red;
 }
  .bg-danger{
    background-color: 	#d2192f !important;
    color: white;
+   weight: 100%;
  }
  .navbar-right .btn-white {
   margin-top: 20px;
@@ -100,13 +105,7 @@ td {
   background-color: #808080;
   color: white;
 }
-.alert-alert {
-  @extend .alert-danger;
-}
 
-.alert-notice {
-  @extend .alert-warning;
-}
 
 body {
   font-size: 16px;

@@ -1,16 +1,21 @@
-<center>
+<div class="oRecord">
+  <div class="form-group  nested-fields">
+      <div class="form-group col-md-5">
+        <%= f.text_field :name , class: 'form-control' , placeholder: 'Option Name' %>
+      </div>
 
-<div class='nested-fields'>
-<div class="field">
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+      <div class="form-group col-md-5">
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+          <%= f.text_field :cost_in_dollars , class: 'form-control' , placeholder: '0.0' , type: 'integer' %> 
+        </div>
+      </div>
+
+      <div>
+      <%= f.hidden_field :_destroy %> 
+      <%= link_to '' , class: 'text-danger btn-delete slide-up-section btn btn-primary btn-border btn-remove remove_fields dynamic' do %>
+        <i class="fas fa-trash-alt"></i>
+        <% end %>
+      </div>
+  </div>
 </div>
-<div class="field">
-  <%= f.label :cost_in_dollars %>
-  <%= f.text_field :cost_in_dollars %>
-</div>
-<%= link_to_remove_association "remove option", f ,class:"btn btn-primary" %>
-<br>
-<br>
-</div>
-</center>

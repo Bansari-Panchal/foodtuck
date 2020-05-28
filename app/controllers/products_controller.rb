@@ -1,11 +1,14 @@
 class ProductsController < ApplicationController
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @vendor = Vendor.find(params[:vendor_id])
     @products = Product.all.where(:vendor_id => @vendor.id)
+    flash.now[:info] = "This is available items."
   end
         
   def show
-    @product = Product.find(params[:id])
+    @product = @vendor.products.find(params[:id])
+    
   end
         
   def new
@@ -13,11 +16,9 @@ class ProductsController < ApplicationController
     @vendor = Vendor.find(params[:vendor_id])
     @vendor.products.build
     @product.choices.build
-    #@product.choices.options.build
   end
         
   def edit
-    @vendor = Vendor.find(params[:vendor_id])
     @product = Product.find(params[:id])
     
   end
@@ -26,25 +27,27 @@ class ProductsController < ApplicationController
     @vendor = Vendor.find(params[:vendor_id])
     @product = @vendor.products.build(product_params)
       if @product.save
+        flash.now[:success] = "Item is created sucessfully."
         redirect_to vendor_products_path
       else
+        flash.now[:error] = "Item is not created.something is wrong."
         render 'new'
       end
   end
         
   def update
-    @vendor = Vendor.find(params[:vendor_id])
     @product = @vendor.products.find(params[:id])
         
     if @product.update(product_params)
+      flash.now[:success] = "Item is updated sucessfully."
       redirect_to vendor_products_path
-    else
+     else
+      flash.now[:error] = "Item is not updated.something is wrong."
       render 'edit'
     end
   end
         
   def destroy
-    @vendor = Vendor.find(params[:vendor_id])
     @product = @vendor.products.find(params[:id])
     @product.destroy
     redirect_to vendor_path(@vendor)
@@ -54,7 +57,12 @@ class ProductsController < ApplicationController
     def product_params
           params.require(:product).permit(:vendor_id,:name,:cost_in_dollars,:description,:menu_category,:item_tags,:availability,:popular,:item_image,:is_catering, choices_attributes:[:id, :name, :allow_multiple, :_destroy,options_attributes: [:id, :name, :cost_in_dollars,  :choice_id,:_destroy]])
     end
-              
+         
+    private
+
+  def set_product
+      @vendor = Vendor.find(params[:vendor_id])
+  end
              
 end
 #[:id,:name,:allow_multiple,:_destroy]

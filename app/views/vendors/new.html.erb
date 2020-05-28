@@ -1,37 +1,37 @@
-<h2>REGISTER YOUR FOOD TRUCK</h2>
+<h2 class="well well-lg">REGISTER YOUR FOOD TRUCK</h2>
 
 <%= form_for @vendor, :as => :vendor, :url =>   vendors_path(@vendor), local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= current_user.name %> 
-  <div class="field"><%= f.label :name %><br />
+  <div class="form-group"><%= f.label :name %>
         <%= f.text_field :name %>
     </div>
 
-    <div class="field"><%= f.label :tagline %><br />
+    <div class="form-group"><%= f.label :tagline %>
         <%= f.text_field :tagline %>
     </div>
 
-    <div class="field"><%= f.label :description %><br />
+    <div class="form-group"><%= f.label :description %>
         <%= f.text_area :description %>
     </div> 
 
-     <div class="field"><%= f.label :upload_logo %><br />
+     <div class="form-group"><%= f.label :upload_logo %>
         <%= f.file_field :featured_image %>
     </div>
   
-    <div class="field"><%= f.label :order_fulfillment_time_in_minutes %><br />
+    <div class="form-group"><%= f.label :order_fulfillment_time_in_minutes %>
         <%= f.select :order_fulfillment_time_in_minutes, ['10', '15','20','25','30']%>
     </div> 
 
 
-    <div class="field"><%= f.label :Pick_category %><br />
+    <div class="form-group"><%= f.label :Pick_category %>
         <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
-          <div> <%= b.check_box %><%= b.label { b.text } %></div>
+          <%= b.check_box %><%= b.label { b.text } %>
           <% end %>
         </div> 
     <br>
 
-    <div class="field"><%= f.label :Rate_your_truck_from_Cheap_to_Spendyx %><br />
+    <div class="form-group"><%= f.label :Rate_your_truck_from_Cheap_to_Spendyx %>
     <%= f.radio_button :price_point, '1' %> 1
     <%= f.radio_button :price_point, '2' %> 2
     <%= f.radio_button :price_point, '3' %> 3
@@ -43,24 +43,24 @@
     <h3>Taxes and Fees</h3>
 
     <%= f.fields_for :tax , @vendor.tax do |c| %>
-      <div class="field"><%= c.label :description %><br />
+      <div class="form-group"><%= c.label :description %>
       <%= c.text_field :desc %>
       </div>
         </br>
-      <div class="field"><%= c.label :Amount %><br />
+      <div class="form-group"><%= c.label :Amount %>
       <%= c.text_field :amount %>
       </div>
         </br>
       
-      <div class="field">
+      <div class="form-group">
       <%= c.radio_button :is_percentage, 'Percentage' %> Percentage
       <%= c.radio_button :is_percentage, 'Flat Amount' %> Flat Amount
       </div>
   
-      <div class="field">
+      <div class="form-group">
          
           <%= c.check_box :terms, {}, true, false %>
-          <%= c.label "I agree to the Vendor Terms of Service" %> <br />
+          <%= c.label "I agree to the Vendor Terms of Service" %> 
       </div>
     <% end %>
   
@@ -69,4 +69,4 @@
   </div>
 <% end %>
 
-</script>
+      

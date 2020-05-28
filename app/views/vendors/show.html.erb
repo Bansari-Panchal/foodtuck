@@ -1,8 +1,10 @@
 <% if @vendor.user_id == current_user.id %>
+<div class="container">
 <div align="right">
-<%= link_to 'Edit Vendor',edit_vendor_path(@vendor)%><br>
-<%= link_to 'Vendor Menu',vendor_products_path(@vendor)%><br>
-<%= link_to 'User Dashboard',edit_user_path(current_user)%><br>
+<%= link_to 'Edit Vendor',edit_vendor_path(@vendor) , class:"btn "%>
+<%= link_to 'Vendor Menu',vendor_products_path(@vendor) , class:"btn "%>
+<%= link_to 'User Dashboard',edit_user_path(current_user) , class:"btn "%>
+</div>
 </div>
 <% end %>
 <hr>
@@ -12,7 +14,8 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-4">
-<%=image_tag(@vendor.featured_image.url) %>
+
+<%= image_tag(@vendor.featured_image , size: 200) if @vendor.featured_image.attached?%>
 </div>
 <div class="col-sm-4">
   <h3><%= @vendor.name %></h3><br>

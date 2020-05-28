@@ -63,6 +63,14 @@
     <%= yield %>
   </body>
 </html>
+-----------------------------------------------------------------------------
+<% @vendors.each do |vendor| %>
+  <% if vendor.user_id == current_user.id %>
+    <div align="right">
+    <%= link_to 'Vendor Dashboard',vendor_path(vendor) , class:"btn btn-primary"%><br>
+    </div>
+  <% end %>
+<% end %>
 
     
  
