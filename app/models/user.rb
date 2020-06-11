@@ -3,6 +3,10 @@ class User < ApplicationRecord
   has_one :vendor, dependent: :destroy
   has_many :user_provider, :dependent => :destroy
   has_one_attached :image
+  has_many :favorites
+  has_many :favorite_vendors, through: :favorites, source: :favorited, source_type: 'Vendor'
+  has_many :favorite_products, through: :favorites, source: :favorited, source_type: 'Product'
+  
   
 
   # Include default devise modules. Others available are:

@@ -29,10 +29,10 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-gem 'bootstrap', '~> 4.4.1'
-gem "bootstrap_form", "~> 4.0"
 gem 'cocoon'
-
+gem 'jquery-ui-rails'
+gem 'acts_as_list'
+gem  'font-awesome-sass'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rails-jquery-autocomplete'

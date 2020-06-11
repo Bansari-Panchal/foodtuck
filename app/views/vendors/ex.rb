@@ -71,7 +71,20 @@
     </div>
   <% end %>
 <% end %>
-
+-----------------------------------------------------------------------------------
+<div class="col-md-6">
+          <% if user_signed_in? %>
+              <%= link_to 'Home',vendors_path(current_user), class: 'btn btn-default'%>
+              &nbsp &nbsp
+              <%= link_to 'User Dashboard',edit_user_path(current_user), class: 'btn btn-default'%>
+              &nbsp &nbsp
+              <% if current_user.vendor %>
+              <%= link_to 'Vendor Dashboard' , vendor_path(current_user.vendor),class: 'btn btn-default' %>
+          <% else %>
+             <%= link_to 'Become vendor ?' , new_vendor_path ,class: 'btn btn-default' %>
+            <% end %>
+          <% end %>
+        </div>
     
  
  
