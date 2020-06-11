@@ -1,21 +1,17 @@
-<div class="oRecord">
-  <div class="form-group  nested-fields">
-      <div class="form-group col-md-5">
+<div class="oRecord nested-fields">
+  <div class="form-group">
         <%= f.text_field :name , class: 'form-control' , placeholder: 'Option Name' %>
-      </div>
+  </div>
 
-      <div class="form-group col-md-5">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <div class="input-group-prepend">
           <span class="input-group-text">$</span>
           <%= f.text_field :cost_in_dollars , class: 'form-control' , placeholder: '0.0' , type: 'integer' %> 
         </div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        
+        <div>
+        <%= f.hidden_field :_destroy %> 
+        <%= link_to_remove_association  image_tag("logos/delete.png", {:style => "width:10px;"}), f, class: 'btn btn-xs' %>
       </div>
-
-      <div>
-      <%= f.hidden_field :_destroy %> 
-      <%= link_to '' , class: 'text-danger btn-delete slide-up-section btn btn-primary btn-border btn-remove remove_fields dynamic' do %>
-        <i class="fas fa-trash-alt"></i>
-        <% end %>
-      </div>
-  </div>
 </div>

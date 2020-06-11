@@ -10,8 +10,8 @@ class UsersController < ApplicationController
           
     def new
       @user = User.new
-    end
-          
+   end
+   
     def edit
       @user = User.find(params[:id])
     end
@@ -41,6 +41,12 @@ class UsersController < ApplicationController
       @user.destroy
              
       redirect_to users_path
+    end
+
+
+    def favorite
+      @user = User.find(params[:id])
+    
     end
           
     private

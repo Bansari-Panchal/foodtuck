@@ -1,6 +1,10 @@
-<h2>REGISTER YOUR FOOD TRUCK</h2>
+<br/>
+<div align="left">
+<%= link_to image_tag("logos/back.png", {:style => "width:40px;"}),vendor_path(@vendor)%>Back<br>
+</div>
+<h2>EDIT YOUR FOOD TRUCK</h2>
 
-<%= form_for @vendor, :as => :vendor, :url =>   vendors_path(@vendor), local: true do |f| %>
+<%= form_for @vendor, :as => :vendor, :url =>   vendors_path(@vendor),:html => { :id => "edit_vendor" } , local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= current_user.name %> 
   <div class="field"><%= f.label :name %><br />

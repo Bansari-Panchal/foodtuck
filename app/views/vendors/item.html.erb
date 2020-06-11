@@ -1,0 +1,23 @@
+
+<% Product.all.where(:vendor_id => @vendor.id).each do |p| %>
+    <div class="row">
+   <div class="col-md-3">
+    <h3><%= p.menu_category %></h3>
+    <div class="item-box">
+    <%= link_to  add_favorite_item_path(@vendor , p),class: 'text-right', remote: true, method: :post do %>
+        <% if current_user.favorited?(p) %>
+        <i class="fas fa-heart active"></i>
+        <% else %>
+        <i class="fas fa-heart style="color:black;font-size:30px;"></i>
+        <% end %>
+      <% end %>
+    <div class="badge bg-info">$<%= p.cost_in_dollars %></div>
+    <%= image_tag(p.item_image , size: 200) if p.item_image.attached? %>
+    <div class="itemTags">
+    <%= p.name %>
+    </div>
+    </div>
+    </br>   
+    </div>
+    </div>
+<%end%>

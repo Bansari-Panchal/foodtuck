@@ -11,9 +11,8 @@ class VendorsController < ApplicationController
     def show
       @vendor = Vendor.find(params[:id])
     end
-          
+     
     def new
-
       @vendor = Vendor.new
       @vendor.build_tax
     end
@@ -52,10 +51,16 @@ class VendorsController < ApplicationController
       redirect_to vendors_path
     end
 
+    def item
+      @vendor = Vendor.find(params[:vendor_id])
+    end
+
+
     def search_city 
       @find = City.where('name LIKE ?', "%#{params[:q]}%")
       render json: @find
     end
+
 
     private
     def vendor_params

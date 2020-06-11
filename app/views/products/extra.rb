@@ -110,3 +110,42 @@ Catering
 Catering
 </li>
 </ul>
+--------------------------------
+
+<div class="modal fade" id="myModal"  role="dialog" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Choices</h4>
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="item-choices">
+              <% @product.choices.each do |c| %>
+                <h3><%= c.name %></h3>
+                <% c.options.each do |o| %>
+                  <div class="badge" style="margin-bottom: 10px;">
+                    <%= o.name %> &nbsp; <%= o.cost_in_dollars %><br />
+                  </div>
+                  <% end %>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div align="left">
+          <span class="red"> * </span> &nbsp;&nbsp;&nbsp;
+          means such choice will allow customer to choose only one option from the all options available for that choice while ordering
+        </div>
+        <div align="right">
+          <img src="/assets/logos/avc.svg" alt="Startorder" size="40px"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

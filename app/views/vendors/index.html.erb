@@ -2,25 +2,27 @@
 
 
 <h1>Listing Vendors</h1>
-<%= form_tag(vendors_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search" %>
-  <%= submit_tag "Search" %>
-<% end %>
-  <br>
-  <br>
 <table>
 <% @vendors.each do |vendor| %>
-  
+    <div class="item-box">
     <div class="container">
     <div class="row">
     <div class="col-sm-4">
-    <%= image_tag(vendor.featured_image  , size: 250) if vendor.featured_image.attached? %>
+      <i class="fas fa-heart active"></i>
+      <%- if current_user.favorite_vendors.exists?(id: vendor.id) -%>
+      <%= link_to 'Remove from favorites', favorite_vendor_path(vendor), method: :delete %>
+      <%- else -%>
+      <%= link_to 'Add to favorites', favorite_vendors_path(vendor_id: vendor), method: :post %>
+      <%- end -%>
+    <%= image_tag(vendor.featured_image  , size: 250,class: "img-thumbnail") if vendor.featured_image.attached?%>
     </div>
     <div class="col-sm-4">
       <h3><%= vendor.name %></h3><br>
-      <%= vendor.tagline %><br>
+      <div class="badge bg-info"><%= vendor.tagline %><br></div><br>
       <%= vendor.description %><br>
-      <%= link_to 'Show More', vendor_path(vendor) %>
+      <br>
+      <%= link_to 'Show More', vendors_item_path(vendor) ,class:"btn btn-warning" %>
+    </div>
     </div>
     </div>
     </div>
