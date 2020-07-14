@@ -24,7 +24,7 @@
   <br />
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don not want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" , class: "input-group-text" %>
+    <%= f.password_field :password, autocomplete: "new-password",id:"user_password" , class: "input-group-text" %>
     <% if @minimum_password_length %>
     <% end %>
   </div>

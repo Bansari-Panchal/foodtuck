@@ -1,6 +1,6 @@
 <h2 class="well well-lg">REGISTER YOUR FOOD TRUCK</h2>
 
-<%= form_for @vendor, :as => :vendor, :url =>   vendors_path(@vendor), local: true do |f| %>
+<%= form_for @vendor, :as => :vendor, :url =>   vendors_path(@vendor),  :html => { :id => "new_vendor" } ,local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= current_user.name %> 
   <div class="form-group"><%= f.label :name %>
@@ -53,7 +53,7 @@
         </br>
       
       <div class="form-group">
-      <%= c.radio_button :is_percentage, 'Percentage' %> Percentage
+      <%= c.radio_button :is_percentage, 'Percentage',:checked => "checked" %> Percentage
       <%= c.radio_button :is_percentage, 'Flat Amount' %> Flat Amount
       </div>
   

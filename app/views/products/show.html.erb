@@ -1,8 +1,0 @@
-<% @product.choices.each do |c| %>
-  <h3><%= c.name %></h3>
-  <% c.options.each do |o| %>
-    <div class="badge" style="margin-bottom: 10px;">
-      <%= o.name %> &nbsp; <%= o.cost_in_dollars %><br />
-    </div>
-  <% end %>
-<% end %>

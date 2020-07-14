@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  tip_in_dollar: 9.99
+  description: MyString
+  completed_at: 2020-07-09 14:58:04
+  pickup_at: 2020-07-09 14:58:04
+  order_number: MyString
+  sent_review_email: false
+  order_note: MyString
+  selected_tip: MyString
+  print_count: 1
+  scedual_datetime: 2020-07-09 14:58:04
+  user: one
+  vendor: one
+
+two:
+  status: 1
+  tip_in_dollar: 9.99
+  description: MyString
+  completed_at: 2020-07-09 14:58:04
+  pickup_at: 2020-07-09 14:58:04
+  order_number: MyString
+  sent_review_email: false
+  order_note: MyString
+  selected_tip: MyString
+  print_count: 1
+  scedual_datetime: 2020-07-09 14:58:04
+  user: two
+  vendor: two

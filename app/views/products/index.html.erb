@@ -1,61 +1,70 @@
 <div align="right">
-<%= link_to 'Add menu item', new_vendor_product_path(@vendor), class:"btn btn-primary"%><br>
+  <%= link_to 'Add menu item', new_vendor_product_path(@vendor), class:"btn btn-primary"%><br>
+</div>
+<div align="left">
+<%= link_to image_tag("logos/back.png", {:style => "width:40px;"}),vendor_path(@vendor)%>Back<br>
 </div>
 <br>
-<br>
-<table>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Regular</a>
+  </li>
+</ul>
 <div class="menu-whitebox"> 
-        <% @products.each do |p| %>
-          <div class="productbox">
-            <div class="row">
-              <div class="col-md-4">
-              <%= image_tag(p.item_image , size: 200) if p.item_image.attached? %>
-              </div>
-              <div class="col-md-6">
-                <h3><%= p.name %></h3>
-                <strong>$ <%= p.cost_in_dollars %></strong>
-                <div class="badge bg-info">
-                  <span class="badge-text">
-                    <%= p.menu_category %>
-                  </span>
-                </div>
-                <br /><br />
-                <%= p.description %>
-                <div class="itemTags">
-                  <div class="badge bg-info">
-                    <span class="badge-text">
-                      <%= p.item_tags %>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                Available
-                <label class="switch checkbox-inline">
-                  <% if p.availability == true %>
-                    <%= check_box_tag :availability , true , checked: true %>
-                  <% else %>
-                    <%= check_box_tag :availability , false %>
-                  <% end %>
-                  <span class="slider round"></span>
-                </label> 
-                <br />
-                <% if p.choices.any? %>
-                  <%= link_to 'Choices' , vendor_product_path(@vendor, p) ,"data-target" => '#myModal' , class: 'btn btn-link', "data-toggle" => "modal"   %>
-                                   
-                  <%= render 'modal' %>
-                <% end %>
-
-                
-                <br /><br /><br /><br />
-                <%= link_to 'Add To Catering' , root_path , class: 'btn btn-border' %>
-                <%= link_to 'Edit' , edit_vendor_product_path(@vendor , p) , class: 'btn btn-border' %>
-
+  <div id="products" class="list-group" data-url="<%= sort_vendor_products_path %>">
+    <% @products.each do |p| %>
+    <% if p.is_catering == false%>
+      <div class="productbox"  id="<%= dom_id(p) %>">
+        <div class="row">
+          <div class="col-md-4">
+              <%= p.position %>
+            <%= image_tag(p.item_image , size: 200) if p.item_image.attached? %>
+          </div>
+          <div class="col-md-6">
+            <h3><%= p.name %></h3>
+            <strong>$ <%= p.cost_in_dollars %></strong>
+            <div class="badge bg-info">
+              <span class="badge-text">
+              <%= p.menu_category %>
+              </span>
+            </div>
+            <br>
+            <%= p.description %>
+            <div class="itemTags">
+              <div class="badge bg-info">
+                <span class="badge-text">
+                  <%= p.item_tags %>
+                </span>
               </div>
             </div>
           </div>
-          <hr >
-        <% end %>
-  </table>
-  
-  
+          <div class="col-md-2">
+            Available
+            <label class="switch checkbox-inline">
+              <% if p.availability == true %>
+                <%= check_box_tag :availability , true , checked: true %>
+              <% else %>
+                <%= check_box_tag :availability , false %>
+              <% end %>
+              <span class="slider round"></span>
+            </label> 
+            <br />
+            <% if p.choices.any? %>
+              <%= link_to vendor_product_path(@vendor, p) , class: 'btn btn-link', remote: true   do  %>
+                Choices 
+              <% end %>
+              <div id="modal-container"></div>
+            <% end %>
+            <br /><br /><br /><br />
+            
+            <%= link_to 'Edit' , edit_vendor_product_path(@vendor , p) , class: 'btn btn-border' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%end%>
+  <hr >
+</div>
+<% if false %> 
+<%= link_to 'Add To Catering' , vendor_products_path(@vendor , p) , class: 'btn btn-border' ,method: :put %>
+<% end %>

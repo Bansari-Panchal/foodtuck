@@ -3,12 +3,12 @@ class User < ApplicationRecord
   has_one :vendor, dependent: :destroy
   has_many :user_provider, :dependent => :destroy
   has_one_attached :image
-  
+  has_many :likes
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable ,:omniauthable, :omniauth_providers => [:facebook, :twitter, :google_oauth2]
+         :recoverable, :rememberable ,:omniauthable, :omniauth_providers => [:facebook]# :twitter, :google_oauth2]
 
   def self.find_for_database_authentication warden_conditions
     conditions = warden_conditions.dup
@@ -23,7 +23,7 @@ class User < ApplicationRecord
       end
     end
   end
-  
+
   def self.from_omniauth(auth)
     puts auth
     puts "--------------------"

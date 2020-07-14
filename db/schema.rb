@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_045247) do
+ActiveRecord::Schema.define(version: 2020_07_09_093834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,39 @@ ActiveRecord::Schema.define(version: 2020_05_28_045247) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "likeable_id"
+    t.string "likeable_type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "line_item_options", force: :cascade do |t|
+    t.string "description"
+    t.decimal "cost_in_dollars"
+    t.bigint "option_id", null: false
+    t.bigint "line_item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["line_item_id"], name: "index_line_item_options_on_line_item_id"
+    t.index ["option_id"], name: "index_line_item_options_on_option_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.decimal "cost_in_dollars", precision: 6, scale: 2
+    t.string "description"
+    t.string "special_instruction"
+    t.integer "quantity"
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+  end
+
   create_table "options", force: :cascade do |t|
     t.string "name"
     t.decimal "cost_in_dollars"
@@ -83,6 +116,26 @@ ActiveRecord::Schema.define(version: 2020_05_28_045247) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["choice_id"], name: "index_options_on_choice_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.decimal "tip_in_dollar"
+    t.string "description"
+    t.datetime "completed_at"
+    t.datetime "pickup_at"
+    t.string "order_number"
+    t.boolean "sent_review_email", default: false, null: false
+    t.string "order_note"
+    t.string "selected_tip"
+    t.integer "print_count", default: 0, null: false
+    t.datetime "scedual_datetime"
+    t.bigint "user_id", null: false
+    t.bigint "vendor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["vendor_id"], name: "index_orders_on_vendor_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -161,7 +214,14 @@ ActiveRecord::Schema.define(version: 2020_05_28_045247) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "products"
+  add_foreign_key "likes", "users"
+  add_foreign_key "line_item_options", "line_items"
+  add_foreign_key "line_item_options", "options"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "line_items", "products"
   add_foreign_key "options", "choices"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "vendors"
   add_foreign_key "products", "vendors"
   add_foreign_key "taxes", "vendors"
   add_foreign_key "vendors", "users"

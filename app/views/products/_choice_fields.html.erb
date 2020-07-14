@@ -19,10 +19,8 @@
       </div>
 
       <div>
-        <%= f.hidden_field :_destroy %> 
-        <%= link_to 'Delete' , class: 'text-danger btn-delete slide-up-section btn btn-primary btn-border btn-remove remove_fields dynamic' do %>
-          <i class="fas fa-trash-alt"></i>
-          <% end %>
+        <%= f.hidden_field :_destroy %>
+        <%= link_to_remove_association  image_tag("logos/delete.png", {:style => "width:10px;"}), f, class: 'btn btn-xs' %>
       </div>
 
     
@@ -38,14 +36,7 @@
         <div class="col-md-12 text-right">
         <%= link_to_add_association 'Add option', f , :options , class: 'btn btn-border'%>
         </div>
-     
-        </div>
-     
       </div>
-
-    
-   
+    </div>
   </div>
-  
-  
 </div>

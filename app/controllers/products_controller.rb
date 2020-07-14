@@ -1,14 +1,29 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery except: :show
+  protect_from_forgery except: :addbag
+  
   def index
     @vendor = Vendor.find(params[:vendor_id])
-    @products = Product.all.where(:vendor_id => @vendor.id)
+    @products = Product.order(:position).where(:vendor_id => @vendor.id)
+    #@product.update_attribute(:is_catering, true)
+    #Product.order(:position).all
     flash.now[:info] = "This is available items."
   end
         
   def show
-    @product = @vendor.products.find(params[:id])
-    
+    @product = Product.find(params[:id])
+    respond_to  do |format|
+      format.js 
+    end
+  end
+
+  def addbag
+    @product = Product.find(params[:id])
+    respond_to  do |format|
+      Vendor.new
+      format.js 
+    end
   end
         
   def new
@@ -53,16 +68,22 @@ class ProductsController < ApplicationController
     redirect_to vendor_path(@vendor)
   end
  
-   private
-    def product_params
-          params.require(:product).permit(:vendor_id,:name,:cost_in_dollars,:description,:menu_category,:item_tags,:availability,:popular,:item_image,:is_catering, choices_attributes:[:id, :name, :allow_multiple, :_destroy,options_attributes: [:id, :name, :cost_in_dollars,  :choice_id,:_destroy]])
+  def sort
+    params[:product].each_with_index do |id, index|
+      Product.where(id: id).update_all(position: index + 1)
     end
-         
-    private
-
-  def set_product
-      @vendor = Vendor.find(params[:vendor_id])
+    head :ok
   end
-             
+
+ 
+  private
+  def product_params
+    params.require(:product).permit(:vendor_id,:name,:cost_in_dollars,:description,:menu_category,:item_tags,:availability,:popular,:item_image,:is_catering, choices_attributes:[:id, :name, :allow_multiple, :_destroy,options_attributes: [:id, :name, :cost_in_dollars,  :choice_id,:_destroy]])
+  end
+         
+  private
+  def set_product
+    @vendor = Vendor.find(params[:vendor_id])
+  end
 end
-#[:id,:name,:allow_multiple,:_destroy]
+#[:id,:name,:allow_multiple,:_destroy] 

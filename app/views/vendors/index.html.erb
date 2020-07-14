@@ -1,29 +1,53 @@
+<div class="row">
+  <div class="toast toast-color" id="notification" data-delay="3000"> 
+    <div class="toast-header toast-color"> 
+      <strong class="t-header mr-auto">Added Favorites</strong> 
+      <small class="ml-2">Just Now</small> 
 
+      <button type="button" class="ml-2 mb-1 close" style="font-size:20px;"  data-dismiss="toast" aria-label="Close"> 
+      <span aria-hidden="true">×</span> 
+      </button> 
+    </div> 
 
-
+    <div class="vtoast-body"> 
+    Foodtruck added into favorites.
+    </div> 
+  </div> 
+</div>
 <h1>Listing Vendors</h1>
-<%= form_tag(vendors_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search" %>
-  <%= submit_tag "Search" %>
-<% end %>
-  <br>
-  <br>
 <table>
 <% @vendors.each do |vendor| %>
-  
+    <div class="truck-box">
     <div class="container">
     <div class="row">
     <div class="col-sm-4">
-    <%= image_tag(vendor.featured_image  , size: 250) if vendor.featured_image.attached? %>
+    
+    <% if Like.where(likeable_type: 'Vendor' , likeable_id: vendor.id , user_id: current_user.id).exists? %>
+    <%= link_to like_path(vendor , vendor_id: vendor.id,likeable_type: 'Vendor' , likeable_id: vendor.id ), method: :delete , id: 'vdislike' do %>
+      <input type="hidden" id="vendor_id" value="<%= vendor.id %>" >
+      <i class="fas fa-heart active"></i>
+    <% end %>
+  <% else %>  
+    <%= link_to likes_path(vendor_id: vendor.id , likeable_type: 'Vendor' , likeable_id: vendor.id ),id: 'vlike', method: :post do %>
+      <input type="hidden" id="vendor_id" value="<%= vendor.id %>" >
+      <i class="fas fa-heart"></i>
+    <% end %> 
+  <% end %>    
+    
+      
+    <%= image_tag(vendor.featured_image  , size: 250,class: "img-thumbnail") if vendor.featured_image.attached?%>
     </div>
     <div class="col-sm-4">
       <h3><%= vendor.name %></h3><br>
-      <%= vendor.tagline %><br>
+      <div class="badge bg-info"><%= vendor.tagline %><br></div><br>
       <%= vendor.description %><br>
-      <%= link_to 'Show More', vendor_path(vendor) %>
+      <br>
+      <%= link_to 'Show More', vendors_item_path(vendor) ,class:"btn btn-warning" %>
+    </div>
     </div>
     </div>
     </div>
     </br>
 <% end %>
-</table
+
+
